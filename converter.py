@@ -75,6 +75,9 @@ class Window(QMainWindow):
         self.setWindowTitle("Unit Converter")
         layout = QHBoxLayout()
 
+        # initialize output value
+        self.output_value = 0
+
         # create input lineedit
         self.input_lineedit = QLineEdit()
         self.input_lineedit.textChanged.connect(self.text_changed_lineedit)
