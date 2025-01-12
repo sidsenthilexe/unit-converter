@@ -136,63 +136,73 @@ class Window(QMainWindow):
     def text_changed_output(self):
         self.comboBox2.blockSignals(True)
         input_text_output = self.comboBox1.currentText()
+        current_output = self.comboBox2.currentText()
         self.comboBox2.clear()
+        valid_units = []
         if input_text_output == "Inches":
-            self.comboBox2.addItems(["Feet", "Miles", "Centimetres", "Metres"])
+            valid_units = ["Feet", "Miles", "Centimetres", "Metres"]
         elif input_text_output == "Feet":
-            self.comboBox2.addItems(["Inches", "Miles", "Metres", "Kilometres"])
+            valid_units = ["Inches", "Miles", "Metres", "Kilometres"]
         elif input_text_output == "Miles":
-            self.comboBox2.addItems(["Feet", "Kilometres"])
+            valid_units = ["Feet", "Kilometres"]
         elif input_text_output == "Pounds":
-            self.comboBox2.addItems(["Ounces", "Grams", "Kilograms"])
+            valid_units = ["Ounces", "Grams", "Kilograms"]
         elif input_text_output == "Ounces":
-            self.comboBox2.addItems(["Pounds", "Grams", "Kilograms"])
+            valid_units = ["Pounds", "Grams", "Kilograms"]
         elif input_text_output == "Centimetres":
-            self.comboBox2.addItems(["Inches", "Metres"])
+            valid_units = ["Inches", "Metres"]
         elif input_text_output == "Metres":
-            self.comboBox2.addItems(["Inches", "Feet", "Kilometres"])
+            valid_units = ["Inches", "Feet", "Kilometres"]
         elif input_text_output == "Kilometres":
-            self.comboBox2.addItems(["Feet", "Miles", "Metres"])
+            valid_units = ["Feet", "Miles", "Metres"]
         elif input_text_output == "Grams":
-            self.comboBox2.addItems(["Pounds", "Ounces", "Kilograms"])
+            valid_units = ["Pounds", "Ounces", "Kilograms"]
         elif input_text_output == "Kilograms":
-            self.comboBox2.addItems(["Pounds", "Ounces", "Grams"])
+            valid_units = ["Pounds", "Ounces", "Grams"]
         elif input_text_output == "Celcius":
-            self.comboBox2.addItems(["Fahrenheit"])
+            valid_units = ["Fahrenheit"]
         elif input_text_output == "Fahrenheit":
-            self.comboBox2.addItems(["Celcius"])
+            valid_units = ["Celcius"]
+        self.comboBox2.addItems(valid_units)
+        if current_output in valid_units:
+            self.comboBox2.setCurrentText(current_output)
         self.comboBox2.blockSignals(False)
-        self.text_changed_lineedit() 
+        self.text_changed_lineedit()
 
     # define function to update input unit combobox based on output unit combobox
     def text_changed_input(self):
         self.comboBox1.blockSignals(True)
         output_text_input = self.comboBox2.currentText()
+        current_input = self.comboBox1.currentText()
         self.comboBox1.clear()
+        valid_units = []
         if output_text_input == "Inches":
-            self.comboBox1.addItems(["Feet", "Miles", "Centimetres", "Metres"])
+            valid_units = ["Feet", "Miles", "Centimetres", "Metres"]
         elif output_text_input == "Feet":
-            self.comboBox1.addItems(["Inches", "Miles", "Metres", "Kilometres"])
+            valid_units = ["Inches", "Miles", "Metres", "Kilometres"]
         elif output_text_input == "Miles":
-            self.comboBox1.addItems(["Feet", "Kilometres"])
+            valid_units = ["Feet", "Kilometres"]
         elif output_text_input == "Pounds":
-            self.comboBox1.addItems(["Ounces", "Grams", "Kilograms"])
+            valid_units = ["Ounces", "Grams", "Kilograms"]
         elif output_text_input == "Ounces":
-            self.comboBox1.addItems(["Pounds", "Grams", "Kilograms"])
+            valid_units = ["Pounds", "Grams", "Kilograms"]
         elif output_text_input == "Centimetres":
-            self.comboBox1.addItems(["Inches", "Metres"])
+            valid_units = ["Inches", "Metres"]
         elif output_text_input == "Metres":
-            self.comboBox1.addItems(["Inches", "Feet", "Kilometres"])
+            valid_units = ["Inches", "Feet", "Kilometres"]
         elif output_text_input == "Kilometres":
-            self.comboBox1.addItems(["Feet", "Miles", "Metres"])
+            valid_units = ["Feet", "Miles", "Metres"]
         elif output_text_input == "Grams":
-            self.comboBox1.addItems(["Pounds", "Ounces", "Kilograms"])
+            valid_units = ["Pounds", "Ounces", "Kilograms"]
         elif output_text_input == "Kilograms":
-            self.comboBox1.addItems(["Pounds", "Ounces", "Grams"])
+            valid_units = ["Pounds", "Ounces", "Grams"]
         elif output_text_input == "Celcius":
-            self.comboBox1.addItems(["Fahrenheit"])
+            valid_units = ["Fahrenheit"]
         elif output_text_input == "Fahrenheit":
-            self.comboBox1.addItems(["Celcius"])
+            valid_units = ["Celcius"]
+        self.comboBox1.addItems(valid_units)
+        if current_input in valid_units:
+            self.comboBox1.setCurrentText(current_input)
         self.comboBox1.blockSignals(False)
         self.text_changed_lineedit() 
 
