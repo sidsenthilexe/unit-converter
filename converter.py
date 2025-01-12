@@ -52,6 +52,7 @@ conversion_factors = {
 }
 
 def convert(input, input_unit, conversion_unit):
+    input = float(input)
     key = (input_unit, conversion_unit)
     if key in conversion_factors:
         factor = conversion_factors[key]
@@ -76,7 +77,6 @@ class Window(QMainWindow):
         self.comboBox1 = QComboBox()
         self.comboBox1.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
         self.comboBox1.currentTextChanged.connect(self.text_changed_output)
-        self.comboBox1.currentTextChanged.connect(self.text_changed_lineedit)
         layout.addWidget(self.comboBox1)
 
         equal_sign = QLabel()
@@ -90,7 +90,6 @@ class Window(QMainWindow):
         self.comboBox2 = QComboBox()
         self.comboBox2.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
         self.comboBox2.currentTextChanged.connect(self.text_changed_input)
-        self.comboBox2.currentTextChanged.connect(self.text_changed_lineedit)
         layout.addWidget(self.comboBox2)
 
         widget = QWidget()
@@ -99,12 +98,17 @@ class Window(QMainWindow):
 
     def text_changed_lineedit(self):
         input_value = self.input_lineedit.text()
+        if input_value == "":
+            self.output_text.setText("")
+            return
+
         input_unit = self.comboBox1.currentText()
         input_unit = input_unit.lower()
         output_unit = self.comboBox2.currentText()
         output_unit = output_unit.lower()
 
         output_value = convert(input_value, input_unit, output_unit)
+        output_value = round(output_value, 2)
 
         self.output_text.setText(str(output_value))
 
@@ -137,6 +141,7 @@ class Window(QMainWindow):
         elif input_text_output == "Fahrenheit":
             self.comboBox2.addItems(["Celcius"])
         self.comboBox2.blockSignals(False)
+        self.text_changed_lineedit() 
 
     def text_changed_input(self):
         self.comboBox1.blockSignals(True)
@@ -167,6 +172,7 @@ class Window(QMainWindow):
         elif output_text_input == "Fahrenheit":
             self.comboBox1.addItems(["Celcius"])
         self.comboBox1.blockSignals(False)
+        self.text_changed_lineedit() 
 
     def input_text_changed(self, text):
         self.current_input_unit = text.lower()
