@@ -3,35 +3,28 @@ import sys
 from PySide6.QtCore import (QSize, Qt,)
 from PySide6.QtWidgets import (QApplication, QWidget, QMainWindow, QPushButton, QComboBox, QHBoxLayout, QLineEdit, QLabel,)
 
-
-global current_input_unit
-global output_value
-output_value = 15
-
-
 conversion_factors = {
-
-    #imperial distances
+    # imperial distances
     ("inches", "feet"): 1/12,
     ("feet", "inches"): 12,
     ("feet", "miles"): 1/5280,
     ("miles", "feet"): 5280,
 
-    #imperial weights
+    # imperial weights
     ("pounds", "ounces"): 16,
     ("ounces", "pounds"): 1/16,
 
-    #metric distances
+    # metric distances
     ("centimetres", "metres"): 1/100,
     ("metres", "centimetres"): 100,
     ("metres", "kilometres"): 1/1000,
     ("kilometres", "metres"): 1000,
 
-    #metric weights
+    # metric weights
     ("grams", "kilograms"): 1/1000,
     ("kilograms", "grams"): 1000,
 
-    #imperial <-> metric distances
+    # imperial <-> metric distances
     ("inches", "centimetres"): 2.54,
     ("centimetres", "inches"): 1/2.54,
     ("inches", "metres"): 1/39.37,
@@ -43,7 +36,7 @@ conversion_factors = {
     ("miles", "kilometres"): 1.609,
     ("kilometres", "miles"): 1/1.609,
 
-    #imperial <-> metric weights
+    # imperial <-> metric weights
     ("pounds", "grams"): 453.6,
     ("grams", "pounds"): 1/453.6,
     ("ounces", "grams"): 28.35,
@@ -53,42 +46,37 @@ conversion_factors = {
     ("ounces", "kilograms"): 1/35.274,
     ("kilograms", "ounces"): 35.274,
 
-    #temperature
+    # temperature
     ("celcius", "fahrenheit"): lambda x: (x * 9/5)+32,
     ("fahrenheit", "celcius"): lambda x: (x - 32) * 5/9,
 }
 
 def convert(input, input_unit, conversion_unit):
-    global output_value
     key = (input_unit, conversion_unit)
     if key in conversion_factors:
         factor = conversion_factors[key]
         if callable(factor):
-            output_value = factor(input)
-            return output_value
+            return factor(input)
         else:
-            output_value = input * factor
-            return output_value
+            return input * factor
     else:
         return input
 
 class Window(QMainWindow):
-    global output_value
     def __init__(self):
-        global output_value
-
         super().__init__()
         self.setWindowTitle("Unit Converter")
+        self.output_value = 15
         layout = QHBoxLayout()
 
         self.input_lineedit = QLineEdit()
         self.input_lineedit.textChanged.connect(self.text_changed_lineedit)
         layout.addWidget(self.input_lineedit)
-        
 
         self.comboBox1 = QComboBox()
         self.comboBox1.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
         self.comboBox1.currentTextChanged.connect(self.text_changed_output)
+        self.comboBox1.currentTextChanged.connect(self.text_changed_lineedit)
         layout.addWidget(self.comboBox1)
 
         equal_sign = QLabel()
@@ -96,22 +84,29 @@ class Window(QMainWindow):
         layout.addWidget(equal_sign)
 
         self.output_text = QLabel()
-        self.output_text.setText(str(output_value))
+        self.output_text.setText(str(self.output_value))
         layout.addWidget(self.output_text)
 
         self.comboBox2 = QComboBox()
         self.comboBox2.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
         self.comboBox2.currentTextChanged.connect(self.text_changed_input)
+        self.comboBox2.currentTextChanged.connect(self.text_changed_lineedit)
         layout.addWidget(self.comboBox2)
 
         widget = QWidget()
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
-    def text_changed_lineedit(self, text):
-      pass
-            
-        
+    def text_changed_lineedit(self):
+        input_value = self.input_lineedit.text()
+        input_unit = self.comboBox1.currentText()
+        input_unit = input_unit.lower()
+        output_unit = self.comboBox2.currentText()
+        output_unit = output_unit.lower()
+
+        output_value = convert(input_value, input_unit, output_unit)
+
+        self.output_text.setText(str(output_value))
 
     def text_changed_output(self):
         self.comboBox2.blockSignals(True)
@@ -174,8 +169,7 @@ class Window(QMainWindow):
         self.comboBox1.blockSignals(False)
 
     def input_text_changed(self, text):
-        global current_input_unit
-        current_input_unit = text.lower()
+        self.current_input_unit = text.lower()
 
 app = QApplication(sys.argv)
 window = Window()
