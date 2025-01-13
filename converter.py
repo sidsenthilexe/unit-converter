@@ -171,40 +171,7 @@ class Window(QMainWindow):
 
     # define function to update input unit combobox based on output unit combobox
     def text_changed_input(self):
-        self.comboBox1.blockSignals(True)
-        output_text_input = self.comboBox2.currentText()
-        current_input = self.comboBox1.currentText()
-        self.comboBox1.clear()
-        valid_units = []
-        if output_text_input == "Inches":
-            valid_units = ["Feet", "Miles", "Centimetres", "Metres"]
-        elif output_text_input == "Feet":
-            valid_units = ["Inches", "Miles", "Metres", "Kilometres"]
-        elif output_text_input == "Miles":
-            valid_units = ["Feet", "Kilometres"]
-        elif output_text_input == "Pounds":
-            valid_units = ["Ounces", "Grams", "Kilograms"]
-        elif output_text_input == "Ounces":
-            valid_units = ["Pounds", "Grams", "Kilograms"]
-        elif output_text_input == "Centimetres":
-            valid_units = ["Inches", "Metres"]
-        elif output_text_input == "Metres":
-            valid_units = ["Inches", "Feet", "Kilometres"]
-        elif output_text_input == "Kilometres":
-            valid_units = ["Feet", "Miles", "Metres"]
-        elif output_text_input == "Grams":
-            valid_units = ["Pounds", "Ounces", "Kilograms"]
-        elif output_text_input == "Kilograms":
-            valid_units = ["Pounds", "Ounces", "Grams"]
-        elif output_text_input == "Celcius":
-            valid_units = ["Fahrenheit"]
-        elif output_text_input == "Fahrenheit":
-            valid_units = ["Celcius"]
-        self.comboBox1.addItems(valid_units)
-        if current_input in valid_units:
-            self.comboBox1.setCurrentText(current_input)
-        self.comboBox1.blockSignals(False)
-        self.text_changed_lineedit() 
+        self.text_changed_lineedit()
 
 # create application
 app = QApplication(sys.argv)
