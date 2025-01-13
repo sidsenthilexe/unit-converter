@@ -51,8 +51,8 @@ conversion_factors = {
     ("kilograms", "ounces"): 35.274,
 
     # temperature
-    ("celcius", "fahrenheit"): lambda x: (x * 9/5)+32,
-    ("fahrenheit", "celcius"): lambda x: (x - 32) * 5/9,
+    ("celsius", "fahrenheit"): lambda x: (x * 9/5)+32,
+    ("fahrenheit", "celsius"): lambda x: (x - 32) * 5/9,
 }
 
 # define function to convert between units
@@ -87,7 +87,7 @@ class Window(QMainWindow):
 
         # create input combobox
         self.comboBox1 = QComboBox()
-        self.comboBox1.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
+        self.comboBox1.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celsius", "Fahrenheit"])
         self.comboBox1.currentTextChanged.connect(self.text_changed_output)
         layout.addWidget(self.comboBox1)
 
@@ -161,10 +161,10 @@ class Window(QMainWindow):
             valid_units = ["Pounds", "Ounces", "Kilograms"]
         elif input_text_output == "Kilograms":
             valid_units = ["Pounds", "Ounces", "Grams"]
-        elif input_text_output == "Celcius":
+        elif input_text_output == "Celsius":
             valid_units = ["Fahrenheit"]
         elif input_text_output == "Fahrenheit":
-            valid_units = ["Celcius"]
+            valid_units = ["Celsius"]
         self.comboBox2.addItems(valid_units)
         if current_output in valid_units:
             self.comboBox2.setCurrentText(current_output)
