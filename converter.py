@@ -169,7 +169,7 @@ class Window(QMainWindow):
         self.comboBox2.blockSignals(False)
         self.text_changed_lineedit()
 
-    # define function to update input unit combobox based on output unit combobox
+    # the input combobox should always show all available options, so it just recalculates the output
     def text_changed_input(self):
         self.text_changed_lineedit()
 
