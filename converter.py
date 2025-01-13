@@ -1,8 +1,10 @@
+# a simple program to convert between units of measurement which took way longer than it should have
+
 import sys
 
 # import ui modules
 from PySide6.QtCore import (QSize, Qt,)
-from PySide6.QtWidgets import (QApplication, QWidget, QMainWindow, QPushButton, QComboBox, QHBoxLayout, QLineEdit, QLabel,)
+from PySide6.QtWidgets import (QApplication, QWidget, QMainWindow, QComboBox, QHBoxLayout, QLineEdit, QLabel,)
 
 # define factors for unit conversion
 conversion_factors = {
