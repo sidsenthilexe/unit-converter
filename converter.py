@@ -103,7 +103,7 @@ class Window(QMainWindow):
 
         # create output combobox
         self.comboBox2 = QComboBox()
-        self.comboBox2.addItems(["Inches", "Feet", "Miles", "Pounds", "Ounces", "Centimetres", "Metres", "Kilometres", "Grams", "Kilograms", "Celcius", "Fahrenheit"])
+        self.comboBox2.addItems(["Feet", "Centimetres", "Metres"])
         self.comboBox2.currentTextChanged.connect(self.text_changed_input)
         layout.addWidget(self.comboBox2)
 
@@ -142,7 +142,7 @@ class Window(QMainWindow):
         self.comboBox2.clear()
         valid_units = []
         if input_text_output == "Inches":
-            valid_units = ["Feet", "Miles", "Centimetres", "Metres"]
+            valid_units = ["Feet", "Centimetres", "Metres"]
         elif input_text_output == "Feet":
             valid_units = ["Inches", "Miles", "Metres", "Kilometres"]
         elif input_text_output == "Miles":
